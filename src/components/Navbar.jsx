@@ -2,7 +2,6 @@ import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
-
 function Navbar() {
   return (
     <nav className="navbar navbar-expand-lg navbar-light mb-5 app-theme-color">
