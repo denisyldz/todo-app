@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 function Signup() {
   return (
@@ -27,7 +28,7 @@ function Signup() {
           <div className='d-grid mb-2'>
             <button className='btn btn button'>Sign Up</button>
           </div>
-          <span>Already have an account? <a href='/'>Sign In</a> </span>
+          <span>Already have an account? <Link to='/'>Sign In</Link> </span>
         </form>
       </div>
     </div>
