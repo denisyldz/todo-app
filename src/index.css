@@ -7,3 +7,20 @@
 .button {
   background-color: rgb(180, 78, 150);
 }
+.completed {
+  width: 38px;
+  background-color: rgb(62, 171, 62);
+  border-radius: 50px;
+  padding-right: 4px;
+  padding-left: 4px;
+  padding-bottom: 5px;
+  padding-top: 1px;
+}
+.uncompleted {
+  background-color: rgb(236, 48, 48);
+  border-radius: 50px;
+  padding-right: 4px;
+  padding-left: 4px;
+  padding-bottom: 5px;
+  padding-top: 1px;
+}
