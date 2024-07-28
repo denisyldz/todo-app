@@ -1,37 +1,20 @@
 import React, { useState } from 'react';
 import TodoTable from '../components/TodoTable';
 import AddTodoButton from '../components/AddTodoButton';
-import useTodos from '../hooks/useTodos';
 import Modal from '../components/Modal';
 import Form from '../components/Form';
-import { updateDoc, doc } from 'firebase/firestore';
-import { db } from '../firebase';
+import useTodoActions from '../hooks/useTodoActions';
 
 function Home() {
-  const todoData = useTodos();
+  const { todos, clearForm, setClearForm, handleSave, createTodo, handleDelete } = useTodoActions();
   const [selectedTodo, setSelectedTodo] = useState(null);
-
-  const handleSave = async (updatedTodo) => {
-    if (!updatedTodo?.id) return;
-
-    try {
-      await updateDoc(doc(db, 'todos', updatedTodo?.id), {
-        title: updatedTodo?.title,
-        description: updatedTodo?.description,
-        completed: updatedTodo?.completed,
-      });
-      setSelectedTodo(null); // Close modal
-    } catch (error) {
-      console.error("Error updating todo: ", error);
-    }
-  };
 
   return (
     <div>
       <div className='mb-5'>
-        <AddTodoButton />
+        <AddTodoButton clearForm={clearForm} handleSave={createTodo} setClearForm={setClearForm} />
       </div>
-      <TodoTable todoData={todoData} setSelectedTodo={setSelectedTodo} />
+      <TodoTable handleDelete={handleDelete} todoData={todos} setSelectedTodo={setSelectedTodo} />
       {selectedTodo && (
         <Modal
           id="editModal"

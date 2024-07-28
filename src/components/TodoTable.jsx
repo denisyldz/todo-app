@@ -4,7 +4,7 @@ import EditIcon from './icons/EditIcon';
 import UncompletedIcon from './icons/UncompletedIcon';
 import CompletedIcon from './icons/CompletedIcon';
 
-function TodoTable({ todoData, setSelectedTodo }) {
+function TodoTable({ todoData, setSelectedTodo, handleDelete }) {
   return (
     <>
       <table className="table">
@@ -19,7 +19,7 @@ function TodoTable({ todoData, setSelectedTodo }) {
         </thead>
         <tbody>
           {todoData.map((d, i) => (
-            <tr key={i}>
+            <tr key={d.id}>
               <th scope="row">
                 <div style={{ marginTop: "6px" }}>
                   <span title={d.completed ? 'Completed' : 'Uncompleted'} className={d.completed ? 'completed' : 'uncompleted'}>
@@ -56,7 +56,7 @@ function TodoTable({ todoData, setSelectedTodo }) {
                 >
                   <EditIcon />
                 </button>
-                <button className="btn btn-danger" title='Delete' type="submit">
+                <button onClick={() => handleDelete(d.id)} className="btn btn-danger" title='Delete'>
                   <TrashIcon />
                 </button>
               </td>
