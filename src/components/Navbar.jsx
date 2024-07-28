@@ -2,7 +2,6 @@ import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
-
 function Navbar() {
   return (
     <nav className="navbar navbar-expand-lg navbar-light mb-5 app-theme-color">
@@ -18,15 +17,16 @@ function Navbar() {
                 Todos
               </a>
               <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a className="dropdown-item" href="done">Completed</a></li>
-                <li><a className="dropdown-item" href="undone">Uncompleted</a></li>
+                <li><a className="dropdown-item" href="/completed">Completed</a></li>
+                <li><a className="dropdown-item" href="/uncompleted">Uncompleted</a></li>
               </ul>
             </li>
+
           </ul>
-          <form className="d-flex">
-            <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-            <button className="btn btn-outline-success" type="submit">Search</button>
-          </form>
+          <li class="nav-item d-flex">
+            <a class="nav-link" href="#">Logout</a>
+          </li>
+      
         </div>
       </div>
     </nav>
