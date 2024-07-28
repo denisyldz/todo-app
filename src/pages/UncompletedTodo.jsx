@@ -1,19 +1,10 @@
-import React, { useState } from 'react'
+import React from 'react'
 import TodoTable from '../components/TodoTable'
+import useTodos from '../hooks/useTodos'
 
 function UncompletedTodo() {
-  const [todoData, setTodoData] = useState([
-    {
-      todo: "uncompleted",
-      title: "Homework",
-      description: "Do science homework"
-    },
-    {
-      todo: "uncompleted",
-      title: "Cleanup",
-      description: "Wash the dishes"
-    }
-  ])
+  const todoData = useTodos({ completed: false })
+  
   return (
     <div>
       <TodoTable todoData={todoData} />

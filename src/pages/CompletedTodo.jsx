@@ -1,14 +1,10 @@
-import React, { useState } from 'react'
+import React from 'react'
 import TodoTable from '../components/TodoTable'
+import useTodos from '../hooks/useTodos'
 
 function CompletedTodo() {
-  const [todoData, setTodoData] = useState([
-    {
-      todo: "completed",
-      title: "Homework",
-      description: "Do math homework"
-    }
-  ])
+  const todoData = useTodos({ completed: true })
+
   return (
     <div>
       <TodoTable todoData={todoData} />

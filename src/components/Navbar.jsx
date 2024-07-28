@@ -23,8 +23,8 @@ function Navbar() {
             </li>
 
           </ul>
-          <li class="nav-item d-flex">
-            <a class="nav-link" href="#">Logout</a>
+          <li className="nav-item d-flex">
+            <a className="nav-link" href="#">Logout</a>
           </li>
       
         </div>
