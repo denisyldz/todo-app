@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import TrashIcon from './icons/TrashIcon';
 import EditIcon from './icons/EditIcon';
@@ -18,6 +18,10 @@ function TodoTable({ todoData }) {
 
   return (
     <>
+      <form className="d-flex search-bar mb-4">
+        <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+        <button className="btn btn-outline-success" type="submit">Search</button>
+      </form>
 
       <table className="table">
         <thead>
@@ -62,7 +66,7 @@ function TodoTable({ todoData }) {
       </table>
       <Modal
         id="editModal"
-        title="Edit Todo"
+        title="Edit To Do"
         body={<Form />}
         onSave={handleSave}
         onClose={handleClose}

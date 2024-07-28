@@ -5,6 +5,8 @@ import Signup from './pages/Signup';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from './pages/Home';
 import Navbar from './components/Navbar';
+import UncompletedTodo from './pages/UncompletedTodo';
+import CompletedTodo from './pages/CompletedTodo';
 
 function App() {
   const MainLayout = ({ children }) => {
@@ -31,6 +33,22 @@ function App() {
           element={
             <MainLayout>
               <Home />
+            </MainLayout>
+          }
+        />
+        <Route
+          path='/completed'
+          element={
+            <MainLayout>
+              <CompletedTodo />
+            </MainLayout>
+          }
+        />
+        <Route
+          path='/uncompleted'
+          element={
+            <MainLayout>
+              <UncompletedTodo />
             </MainLayout>
           }
         />
