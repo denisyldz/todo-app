@@ -1,22 +1,23 @@
-import React, { useState } from 'react'
-import TodoTable from '../components/TodoTable'
+import React, { useState } from 'react';
+import TodoTable from '../components/TodoTable';
+import Modal from '../components/Modal';
+import Form from '../components/Form';
+import useTodoActions from '../hooks/useTodoActions';
 
 function UncompletedTodo() {
-  const [todoData, setTodoData] = useState([
-    {
-      todo: "uncompleted",
-      title: "Homework",
-      description: "Do science homework"
-    },
-    {
-      todo: "uncompleted",
-      title: "Cleanup",
-      description: "Wash the dishes"
-    }
-  ])
+  const { todos, handleSave, handleDelete } = useTodoActions({ completed: false });
+  const [selectedTodo, setSelectedTodo] = useState(null);
+
   return (
     <div>
-      <TodoTable todoData={todoData} />
+      <TodoTable todoData={todos} setSelectedTodo={setSelectedTodo} handleDelete={handleDelete} />
+      {selectedTodo && (
+        <Modal
+          id="editModal"
+          title="Edit To Do"
+          body={<Form todoData={selectedTodo} onSave={handleSave} />}
+        />
+      )}
     </div>
   )
 }

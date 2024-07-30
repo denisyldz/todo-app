@@ -1,42 +1,29 @@
-import React, { useState } from 'react'
-import TodoTable from '../components/TodoTable'
-import AddTodoButton from '../components/AddTodoButton'
+import React, { useState } from 'react';
+import TodoTable from '../components/TodoTable';
+import AddTodoButton from '../components/AddTodoButton';
+import Modal from '../components/Modal';
+import Form from '../components/Form';
+import useTodoActions from '../hooks/useTodoActions';
 
 function Home() {
-  const [todoData, setTodoData] = useState([
-    {
-      todo: "completed",
-      title: "Homework",
-      description: "Do math homework"
-    },
-    {
-      todo: "uncompleted",
-      title: "Homework",
-      description: "Do science homework"
-    },
-    {
-      todo: "uncompleted",
-      title: "Cleanup",
-      description: "Wash the dishes"
-    }
-  ])
-
-  const handleSave = () => {
-    console.log('Save button clicked');
-  };
-
-  const handleClose = () => {
-    console.log('Close button clicked');
-  };
+  const { todos, clearForm, setClearForm, handleSave, createTodo, handleDelete } = useTodoActions();
+  const [selectedTodo, setSelectedTodo] = useState(null);
 
   return (
     <div>
       <div className='mb-5'>
-        <AddTodoButton handleSave={handleSave} handleClose={handleClose} />
+        <AddTodoButton clearForm={clearForm} handleSave={createTodo} setClearForm={setClearForm} />
       </div>
-      <TodoTable todoData={todoData} />
+      <TodoTable handleDelete={handleDelete} todoData={todos} setSelectedTodo={setSelectedTodo} />
+      {selectedTodo && (
+        <Modal
+          id="editModal"
+          title="Edit To Do"
+          body={<Form todoData={selectedTodo} onSave={handleSave} />}
+        />
+      )}
     </div>
-  )
+  );
 }
 
-export default Home
+export default Home;

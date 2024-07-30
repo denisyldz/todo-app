@@ -1,8 +1,28 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import { signOut, onAuthStateChanged } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
+import { auth } from '../firebase';
 
 function Navbar() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    auth.onAuthStateChanged(user => {
+      if (!user) {
+        navigate('/')
+      }
+    })
+  }, [])
+  const handleSignOut = () => {
+    signOut(auth)
+      .then(() => {
+        navigate('/')
+      }).catch((err) => {
+        alert(err.message);
+      })
+  }
   return (
     <nav className="navbar navbar-expand-lg navbar-light mb-5 app-theme-color">
       <div className="container">
@@ -23,10 +43,10 @@ function Navbar() {
             </li>
 
           </ul>
-          <li class="nav-item d-flex">
-            <a class="nav-link" href="#">Logout</a>
+          <li className="nav-item d-flex">
+            <a onClick={handleSignOut} className="nav-link" href="#">Logout</a>
           </li>
-      
+
         </div>
       </div>
     </nav>
