@@ -1,18 +1,30 @@
 import { useState, useEffect } from 'react';
-import { db } from '../firebase';
-import { query, collection, onSnapshot, where, updateDoc, doc, addDoc, deleteDoc } from 'firebase/firestore';
+import { db, auth } from '../firebase';
+import { 
+  query, 
+  collection, 
+  onSnapshot, 
+  where, 
+  updateDoc, 
+  doc, 
+  addDoc, 
+  deleteDoc 
+} from 'firebase/firestore';
 
 const useTodosWithActions = (filter) => {
   const [todos, setTodos] = useState([]);
   const [clearForm, setClearForm] = useState(false);
 
   useEffect(() => {
-    const collectionRef = collection(db, 'todos');
-    let q = query(collectionRef);
-    if (filter) {
-      q = query(collectionRef, where('completed', '==', filter.completed));
-    }
+    const user = auth.currentUser;
+    if (!user) return;
 
+    const collectionRef = collection(db, 'todos');
+    let q = query(collectionRef, where('userId', '==', user.uid));
+
+    if (filter) {
+      q = query(q, where('completed', '==', filter.completed));
+    }
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       let todosArr = [];
       querySnapshot.forEach((doc) => {
@@ -28,6 +40,7 @@ const useTodosWithActions = (filter) => {
       });
       setTodos(todosArr);
     });
+
     return () => unsubscribe();
   }, [filter]);
 
@@ -45,12 +58,16 @@ const useTodosWithActions = (filter) => {
   };
 
   const createTodo = async (newTodo) => {
+    const user = auth.currentUser;
+    if (!user) return;
+
     try {
       await addDoc(collection(db, 'todos'), {
         title: newTodo.title,
         description: newTodo.description,
-        completed: newTodo.completed,
+        completed: newTodo.completed || false,
         createdAt: new Date(),
+        userId: user.uid,
       });
       setClearForm(true);
     } catch (error) {
